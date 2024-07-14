@@ -13,7 +13,20 @@ return new class extends Migration
     {
         Schema::create('product_sliders', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('title',200);
+            $table->string('short_des',500);
+            $table->string('image',200);
+
+            $table->unsignedBigInteger('product_id')->unique();
+
+            //Product Slider Relationship
+            $table->foreign('product_id')
+                ->references('id')->on('products')
+                ->restrictOnDelete()
+                ->cascadeOnUpdate();
+
+            $table->timestamps('updated_at')->useCurrent();
+            $table->timestamps('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 
