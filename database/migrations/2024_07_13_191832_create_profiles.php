@@ -13,7 +13,20 @@ return new class extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('firstName',10);
+            $table->string('lastName',10);
+            $table->string('mobile',10);
+            $table->string('city',10);
+            $table->string('shippingAddress',1000);
+            $table->string('email',50)->unique();
+
+            //Relationship
+            $table->foreign('email')->references('email')->on('users')
+                ->restrictOnDelete()->cascadeOnUpdate(); //make 'email' column foreign key and connect with 'email' column of 'users' table.
+                                                         //Relationship constraint restrictOnDelete(); means can't delete from parent table directly.
+                                                         //Relationship constraint cascadeOnUpdate(); if table is updated others table should reflect the update
+            $table->timestamps('updated_at')->useCurrent();
+            $table->timestamps('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 
