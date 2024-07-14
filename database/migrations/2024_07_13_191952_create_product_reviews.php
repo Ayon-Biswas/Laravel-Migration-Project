@@ -13,7 +13,21 @@ return new class extends Migration
     {
         Schema::create('product_reviews', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('description',1000);
+            $table->string('email',50);
+
+            $table->foreign('email')->references('email')->on('profiles')
+                  ->restrictOnDelete()
+                  ->cascadeOnUpdate();
+
+            $table->unsignedBigInteger('product_id');
+
+            $table->foreign('product_id')->references('id')->on('products')
+                ->restrictOnDelete()
+                ->cascadeOnUpdate();
+
+            $table->timestamps('updated_at')->useCurrent();
+            $table->timestamps('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 
