@@ -25,8 +25,8 @@ return new class extends Migration
                 ->restrictOnDelete()->cascadeOnUpdate(); //make 'email' column foreign key and connect with 'email' column of 'users' table.
                                                          //Relationship constraint restrictOnDelete(); means can't delete from parent table directly.
                                                          //Relationship constraint cascadeOnUpdate(); if table is updated others table should reflect the update
-            $table->timestamps('updated_at')->useCurrent();
-            $table->timestamps('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 
